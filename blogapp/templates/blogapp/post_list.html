@@ -1,0 +1,83 @@
+{% extends 'blogapp/base.html' %}
+
+{% block content %}
+    <div class="container mt-4">
+        {% for post in posts %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p class="card-text post-meta">Published by {{ post.author }} on {{ post.published_date }}</p>
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text">{{ post.text|linebreaksbr }}</p>
+
+                    <!-- Like button with thumbs-up icon -->
+                    <form method="post" action="{% url 'like_post' post.id %}">
+                        {% csrf_token %}
+                       <!-- Inside the loop for posts -->
+<!-- Inside the loop for posts -->
+<button type="submit" class="btn btn-primary btn-sm like-button {% if post.id in liked_posts %}liked{% endif %}" {% if not user.is_authenticated %} onclick="openLoginModal(); return false;" {% endif %}>
+    <span class="material-icons">thumb_up</span>
+</button>
+<span class="like-count">{{ post.likes.count }} likes</span>
+
+</form>
+
+                
+
+                    <!-- List comments -->
+                    <div class="mt-3">
+                        <h5 class="comments-heading">Comments</h5>
+                        {% for comment in post.comments.all %}
+                            <div class="card-text comment mb-2">
+                                <strong>{{ comment.author }}</strong>: {{ comment.text }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Comment form -->
+                    <form method="post" action="{% url 'comment_post' post.id %}" class="mt-2">
+                        {% csrf_token %}
+                        <textarea name="comment" class="form-control" placeholder="Add your comment" required></textarea>
+                        <button type="submit" class="btn btn-success mt-2" {% if not user.is_authenticated %} onclick="openLoginModal(); return false;" {% endif %}>
+                            Comment
+                        </button>
+                    </form>
+                    {% if not user.is_authenticated %}
+                    <p class="mt-3 login-prompt text-center">
+                        <span class="prompt-text">Please</span>
+                        <button type="button" class="btn btn-primary btn-sm" id="loginLink" onclick="openLoginModal()">Login</button>
+                        <span class="prompt-text">or</span>
+                        <button type="button" class="btn btn-success btn-sm" id="signupLink" onclick="openSignupModal()">Signup</button>
+                        <span class="prompt-text">to like and comment.</span>
+                    </p>
+                    
+                    
+                    
+                           {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Include your existing modals -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            {% include 'blogapp/login_modal.html' %}
+        </div>
+    </div>
+
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            {% include 'blogapp/signup_modal.html' %}
+        </div>
+    </div>
+
+    <script>
+        function openLoginModal() {
+            $('#loginModal').modal('show');
+        }
+
+        function openSignupModal() {
+            $('#signupModal').modal('show');
+        }
+    </script>
+{% endblock %}

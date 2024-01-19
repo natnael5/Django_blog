@@ -1,0 +1,121 @@
+/* styles.css */
+
+/* Body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-brand {
+    color: #ffffff;
+}
+
+.navbar-toggler-icon {
+    background-color: #ffffff;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff;
+}
+
+/* Container styles */
+.container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Blog post styles */
+.blog-post {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ced4da;
+}
+
+.post-meta {
+    color: #6c757d;
+}
+
+h2 {
+    color: #0059ff;
+}
+
+/* Like and comment button styles */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+/* Comment textarea style */
+.form-control {
+    margin-bottom: 10px;
+}
+
+/* Login prompt style */
+.login-prompt {
+    color: #dc3545;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+
+.modal-content {
+background-color: #fefefe;
+margin: 10% auto;
+padding: 20px;
+border: 1px solid #888;
+width: 80%;
+}
+
+/* New styles for modal header and body */
+.modal-header {
+padding: 10px;
+background-color: #5cb85c;
+color: white;
+text-align: center;
+}
+
+.modal-body {
+padding: 20px;
+}
+
+/* Style for close button */
+.close-modal {
+color: white;
+font-size: 30px;
+font-weight: bold;
+cursor: pointer;
+float: right;
+}
+
+.close-modal:hover {
+color: #ddd;
+}
+
+
+/* Custom styles for the like button icon */
+/* Custom styles for the like button icon */
+
+

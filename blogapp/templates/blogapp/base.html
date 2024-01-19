@@ -1,0 +1,127 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Django Blog{% endblock %}</title>
+    <!-- Add your CSS links or include Bootstrap here -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="{% static 'blogapp/styles.css' %}">
+
+
+
+</head>
+<body>
+   
+<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: rgba(0, 0, 0, 0.7);">
+    <a class="navbar-brand" href="{% url 'post_list' %}" data-toggle="collapse" data-target="#navbarNav">
+        My Blog
+    </a>
+    <div class="ml-auto">
+        <ul class="navbar-nav d-flex">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link btn btn-success btn-sm text-white px-3" href="#" onclick="openLoginModal()">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary btn-sm text-white px-3 ml-2" href="#" onclick="openSignupModal()">Sign Up</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+    <!-- Content -->
+    <div class="container mt-4">
+        {% block content %}
+            {# Content from child templates will go here #}
+        {% endblock %}
+    </div>
+
+    <!-- Include your existing modals -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            {% include 'blogapp/login_modal.html' %}
+        </div>
+    </div>
+
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            {% include 'blogapp/signup_modal.html' %}
+        </div>
+    </div>
+
+    <!-- Bootstrap scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Add the following script for modal switching -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginModal = document.getElementById('loginModal');
+            const signupModal = document.getElementById('signupModal');
+            const loginLink = document.getElementById('loginLink');
+            const signupLink = document.getElementById('signupLink');
+            const closeModalButtons = document.querySelectorAll('.close-modal');
+    
+            // Function to open the login modal
+            window.openLoginModal = function() {
+                loginModal.style.display = 'block';
+                signupModal.style.display = 'none';
+            };
+    
+            // Function to open the signup modal
+            window.openSignupModal = function() {
+                loginModal.style.display = 'none';
+                signupModal.style.display = 'block';
+            };
+    
+            loginLink.addEventListener('click', function(event) {
+                event.preventDefault();  // Prevent default navigation
+                openLoginModal();
+            });
+    
+            signupLink.addEventListener('click', function(event) {
+                event.preventDefault();  // Prevent default navigation
+                openSignupModal();
+            });
+    
+            // Function to close modals
+            window.closeModals = function() {
+                loginModal.style.display = 'none';
+                signupModal.style.display = 'none';
+            };
+    
+            // Event listeners for close buttons
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', closeModals);
+            });
+    
+            // Event listener for 'ESC' key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeModals();
+                }
+            });
+        });
+    </script>
+    
+    
+    
+</body>
+</html>
